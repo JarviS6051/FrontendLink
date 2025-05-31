@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixisphere - Find the Perfect Photographer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="bg-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-camera text-2xl text-primary"></i>
+                        <h1 class="text-2xl font-bold text-primary">Pixisphere</h1>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a href="#" class="text-text hover:text-primary transition-colors">Browse</a>
+                        <a href="#" class="text-text hover:text-primary transition-colors">How it Works</a>
+                        <a href="#" class="text-text hover:text-primary transition-colors">Contact</a>
+                        <button class="btn btn--primary">Join as Photographer</button>
+                    </nav>
+                    <button class="md:hidden text-text">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Category Listing Page -->
+        <div id="categoryPage" class="page active">
+            <!-- Hero Section -->
+            <section class="bg-gradient-to-r from-primary/10 to-primary/5 py-12">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl font-bold text-text mb-4">Find Your Perfect Photographer</h2>
+                        <p class="text-lg text-text-secondary mb-6">Discover talented photographers for your special moments</p>
+                        
+                        <!-- AI Smart Suggestion -->
+                        <div class="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+                            <i class="fas fa-lightbulb text-primary mr-2"></i>
+                            <span class="text-sm font-medium text-primary">Smart Suggestion:</span>
+                            <span class="text-sm text-text ml-1">Top-rated outdoor maternity photographers in Bengaluru</span>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="max-w-2xl mx-auto relative">
+                            <input type="text" id="searchInput" placeholder="Search by name, location, or tags..." 
+                                   class="form-control w-full pl-12 pr-4 py-3 text-lg">
+                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container mx-auto px-4 py-8">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Filters Sidebar -->
+                    <aside class="lg:w-80">
+                        <div class="lg:sticky lg:top-24">
+                            <!-- Mobile Filter Toggle -->
+                            <button id="mobileFilterToggle" class="lg:hidden w-full btn btn--secondary mb-4">
+                                <i class="fas fa-filter mr-2"></i>
+                                Filters & Sort
+                            </button>
+
+                            <!-- Filter Panel -->
+                            <div id="filterPanel" class="bg-surface border border-card-border rounded-lg p-6 hidden lg:block">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h3 class="text-lg font-semibold text-text">Filters</h3>
+                                    <button id="clearFilters" class="text-primary hover:text-primary-hover text-sm">Clear All</button>
+                                </div>
+
+                                <!-- Sort Options -->
+                                <div class="mb-6">
+                                    <label class="form-label">Sort By</label>
+                                    <select id="sortSelect" class="form-control">
+                                        <option value="featured">Featured</option>
+                                        <option value="price-low">Price: Low to High</option>
+                                        <option value="price-high">Price: High to Low</option>
+                                        <option value="rating">Rating: High to Low</option>
+                                        <option value="recent">Recently Added</option>
+                                    </select>
+                                </div>
+
+                                <!-- Price Range -->
+                                <div class="mb-6">
+                                    <label class="form-label">Price Range</label>
+                                    <div class="flex items-center gap-4 mb-2">
+                                        <span class="text-sm text-text-secondary">₹5,000</span>
+                                        <input type="range" id="priceRange" min="5000" max="20000" value="20000" 
+                                               class="flex-1 accent-primary">
+                                        <span class="text-sm text-text-secondary">₹20,000</span>
+                                    </div>
+                                    <div class="text-center text-sm text-text">
+                                        Up to ₹<span id="priceValue">20,000</span>
+                                    </div>
+                                </div>
+
+                                <!-- City Filter -->
+                                <div class="mb-6">
+                                    <label class="form-label">City</label>
+                                    <select id="cityFilter" class="form-control">
+                                        <option value="">All Cities</option>
+                                        <option value="Bengaluru">Bengaluru</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Mumbai">Mumbai</option>
+                                        <option value="Hyderabad">Hyderabad</option>
+                                    </select>
+                                </div>
+
+                                <!-- Rating Filter -->
+                                <div class="mb-6">
+                                    <label class="form-label">Minimum Rating</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="rating" value="" class="accent-primary">
+                                            <span class="text-sm">All Ratings</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="rating" value="4" class="accent-primary">
+                                            <span class="text-sm">4+ Stars</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="rating" value="3" class="accent-primary">
+                                            <span class="text-sm">3+ Stars</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="rating" value="2" class="accent-primary">
+                                            <span class="text-sm">2+ Stars</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Styles Filter -->
+                                <div class="mb-6">
+                                    <label class="form-label">Photography Styles</label>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" value="Traditional" class="accent-primary style-filter">
+                                            <span class="text-sm">Traditional</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" value="Candid" class="accent-primary style-filter">
+                                            <span class="text-sm">Candid</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" value="Studio" class="accent-primary style-filter">
+                                            <span class="text-sm">Studio</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" value="Outdoor" class="accent-primary style-filter">
+                                            <span class="text-sm">Outdoor</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox" value="Indoor" class="accent-primary style-filter">
+                                            <span class="text-sm">Indoor</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <main class="flex-1">
+                        <!-- Results Info -->
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <p class="text-text-secondary">
+                                    <span id="resultsCount">0</span> photographers found
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Loading Skeleton -->
+                        <div id="loadingSkeleton" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+                            <!-- Skeleton cards will be inserted here -->
+                        </div>
+
+                        <!-- Photographer Grid -->
+                        <div id="photographerGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+                            <!-- Photographer cards will be inserted here -->
+                        </div>
+
+                        <!-- Load More Button -->
+                        <div class="text-center">
+                            <button id="loadMoreBtn" class="btn btn--secondary hidden">
+                                Load More Photographers
+                            </button>
+                        </div>
+
+                        <!-- No Results -->
+                        <div id="noResults" class="text-center py-12 hidden">
+                            <i class="fas fa-search text-4xl text-text-secondary mb-4"></i>
+                            <h3 class="text-xl font-semibold text-text mb-2">No photographers found</h3>
+                            <p class="text-text-secondary">Try adjusting your filters or search terms</p>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photographer Profile Page -->
+        <div id="profilePage" class="page hidden">
+            <div class="container mx-auto px-4 py-8">
+                <!-- Breadcrumb -->
+                <nav class="mb-6">
+                    <button id="backToListing" class="flex items-center gap-2 text-primary hover:text-primary-hover">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Photographers</span>
+                    </button>
+                </nav>
+
+                <div id="profileContent">
+                    <!-- Profile content will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Inquiry Modal -->
+        <div id="inquiryModal" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-surface rounded-lg max-w-md w-full p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold">Send Inquiry</h3>
+                    <button id="closeModal" class="text-text-secondary hover:text-text">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="inquiryForm">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" id="inquiryName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="inquiryEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" id="inquiryPhone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Event Date</label>
+                        <input type="date" id="inquiryDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea id="inquiryMessage" class="form-control" rows="4" 
+                                placeholder="Tell us about your photography needs..."></textarea>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" id="cancelInquiry" class="btn btn--secondary flex-1">Cancel</button>
+                        <button type="submit" class="btn btn--primary flex-1">Send Inquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Toast -->
+        <div id="successToast" class="fixed top-4 right-4 bg-success text-white px-6 py-3 rounded-lg shadow-lg z-50 hidden">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span>Inquiry sent successfully!</span>
+        </div>
+
+        <!-- Mobile Filter Modal -->
+        <div id="mobileFilterModal" class="fixed inset-0 bg-black/50 flex items-end justify-center z-50 hidden lg:hidden">
+            <div class="bg-surface w-full max-h-[90vh] overflow-y-auto rounded-t-lg">
+                <div class="sticky top-0 bg-surface border-b border-card-border p-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold">Filters & Sort</h3>
+                        <button id="closeMobileFilter" class="text-text-secondary">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="mobileFilterContent" class="p-4">
+                    <!-- Mobile filter content will be cloned here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
